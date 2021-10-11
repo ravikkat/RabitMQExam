@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rabitmqexam2
+spec:
+  selector:
+    matchLabels:
+      app: rabitmqexam2
+  template:
+    metadata:
+      labels:
+        app: rabitmqexam2
+    spec:
+      containers:
+      - name: rabitmqexam2
+        image: rabbitmq:3.9-management
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: rabitmqexam2
+spec:
+  type: NodePort
+  selector:
+    app: rabitmqexam2
+  ports:
+  - port: 80
+    targetPort: 5672
+    nodePort: 31672
+    name: "management"
